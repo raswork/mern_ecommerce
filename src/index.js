@@ -1,15 +1,15 @@
-import 'dotenv/config'
-import { app } from "./app.js";
-import {connectDB} from './db/connectDB.js'
+import dotenv from 'dotenv'
+import app from './app.js'
+import dbConnect from './database/dbConnect.js'
 
-
-
-connectDB().then(()=>{
-    app.listen(8000,()=>{
-        console.log("db connected and server running")})
-}
-)
-.catch((err)=>{
-    console.log("error in mongodb connection",err);
-    process.exit(1)
+dotenv.config({
+    path:'./src/.env'
 })
+
+
+dbConnect().then(
+    app.listen(process.env.PORT||8000,()=>{
+        console.log("connected to database");
+        
+    })
+)
