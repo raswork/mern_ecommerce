@@ -24,14 +24,17 @@ const orderSchema=new Schema({
         pincode:{type:String,required:true},
         phone:{type:String,required:true}
     },
+    isPaid:{type:Boolean,default:false},
+    paidAt:Date,
+    isDelivered:{type:Boolean,default:false},
+    deliveredAt:Date,
     paymentMethod:String,
+    
     orderStatus:{
         type:String,
         enum:['pending','confirmed','processing'],
         default:'pending'
     }
-
-
 },{timestamps:true})
 
 const Order=mongoose.model("Order",orderSchema)
