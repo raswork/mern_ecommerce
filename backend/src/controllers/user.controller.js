@@ -108,6 +108,22 @@ export const logoutUser= asyncHandler(async(req,res)=>{
               .json(new ApiResponse(200,{},"logged out"))
 })
 
+export const getProfile =asyncHandler(async(req,res)=>{
+    const user = await User.findById(req.user.id).select("-password")
+    if(!user) return res.status(404).json({message:"user not found"})
+    res.json({data:user})
+})
+
+export const getAllUsers=asyncHandler(async(req,res)=>{
+    if(req.user?.role !== 'admin'){
+        return res.status(403).json(new ApiResponse(403,null,"access denied"))
+    }
+    const users=await User.find().select("-password")
+    res.status(200).json(new ApiResponse(200,users,"users found"))
+})
+
+
+
 export const refreshAccessToken=asyncHandler(async(req,res)=>{
     const token=req.cookies.refreshToken || req.body.refreshToken
     if(!token) {throw new ApiError(401,"unauthorized request") }

@@ -21,10 +21,10 @@ app.use(express.urlencoded({extended:true}))
 app.use(express.static("public"))
 
 
-app.use("/users",userRouter)
-app.use("/products",productRouter)
-app.use("/orders",orderRouter)
-app.use("/cart",cartRouter)
-app.use("/seller",sellerRouter)
+app.use("/api/users",userRouter)
+app.use("/api/products",productRouter)
+app.use("/api/orders",orderRouter)
+app.use("/api/cart",cartRouter)
+app.use("/api/seller",sellerRouter)
 
 export default app
